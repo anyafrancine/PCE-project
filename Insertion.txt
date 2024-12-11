@@ -1,0 +1,90 @@
+Insertion
+-- Insert into branches
+INSERT INTO branches (branch_name, address, contact_number) 
+VALUES 
+('Main Branch', '6535+97P, National Highway, Barangay Real, Calamba, Laguna','(049) 834 6978'),
+("North Branch 1",'123 Main St, Metro City', '(049) 905 4132'),
+('North Branch 2', '456 North St, Metro City', '(049) 762 0541');
+
+-- Insert into categories
+INSERT INTO categories (category_name, description) 
+VALUES 
+('3D Tiles', 'Modern tiles with three-dimensional effects for creative designs'),
+('Natural Stone Tiles', 'Eco-friendly tiles made from natural stone'),
+('Vintage Tiles', 'Retro-style tiles for timeless aesthetics'),
+('Eco-Friendly Tiles', 'Sustainable tiles made with recycled materials'),
+('Anti-Slip Tiles', 'Safe tiles designed to prevent slipping');
+
+-- Insert into tiles
+INSERT INTO tiles (tile_code, tile_name, category_id, color, material, tile_size, price, cost_price, stock_quantity, branch_id) 
+VALUES 
+('3DT-015', 'Geometric Gray 3D Tile', 9, 'Gray', 'Porcelain', '45x45 cm', 14.00, 9.50, 120, 1),
+('NAT-016', 'Rustic Natural Stone', 10, 'Earth', 'Stone', '50x50 cm', 18.00, 12.50, 100, 2),
+('VIN-017', 'Vintage Floral Pattern', 11, 'Blue', 'Ceramic', '30x30 cm', 10.00, 6.00, 150, 3),
+('ECO-018', 'Recycled Green Tile', 12, 'Green', 'Ceramic', '30x30 cm', 8.00, 5.50, 200, 1),
+('ANT-019', 'Textured Anti-Slip', 13, 'Black', 'Porcelain', '60x60 cm', 12.00, 7.00, 90, 2),
+('3DT-020', 'Wavy White 3D Tile', 9, 'White', 'Porcelain', '45x90 cm', 16.00, 10.00, 80, 3),
+('NAT-021', 'Smooth River Stone', 10, 'Gray', 'Stone', '60x40 cm', 20.00, 13.50, 60, 1),
+('VIN-022', 'Checkerboard Vintage Tile', 11, 'Black and White', 'Ceramic', '20x20 cm', 9.00, 5.00, 180, 2),
+('ECO-023', 'Eco-Friendly Brown', 12, 'Brown', 'Porcelain', '30x30 cm', 7.50, 4.50, 250, 3),
+('ANT-024', 'Rough Texture Safety Tile', 13, 'Red', 'Ceramic', '60x60 cm', 15.00, 9.00, 70, 1);
+
+-- Insert into customers
+INSERT INTO customers (customer_name, contact_number, email, address, business_permit, referred_by, credit_limit) 
+VALUES 
+('Chris Black', '111-222-3333', 'chris.black@example.com', '777 Fern St, Metro City', 'BP111222', NULL, 4500.00),
+('Patricia Gray', '444-555-6666', 'patricia.gray@example.com', '888 Ash St, Metro City', 'BP444555', 'Sophia Blue', 5500.00),
+('Liam Gold', '777-888-9999', 'liam.gold@example.com', '999 Cedar St, Metro City', 'BP777888', 'John Doe', 6000.00),
+('Amelia Silver', '888-999-0000', 'amelia.silver@example.com', '1010 Iron St, Metro City', 'BP888999', 'Jane Smith', 5000.00),
+('Lucas Pearl', '999-000-1111', 'lucas.pearl@example.com', '1111 Bronze St, Metro City', 'BP999000', 'Alice Green', 3000.00);
+
+-- Insert into sales
+INSERT INTO sales (customer_id, tile_id, sale_date, quantity, total_price, branch_id) 
+VALUES 
+(2, 15, '2024-12-24', 25, 350.00, 1),
+(4, 16, '2024-12-25', 10, 180.00, 2),
+(5, 17, '2024-12-26', 20, 200.00, 3),
+(3, 18, '2024-12-27', 15, 120.00, 1),
+(1, 19, '2024-12-28', 12, 144.00, 2),
+(5, 20, '2024-12-29', 8, 128.00, 3),
+(3, 21, '2024-12-30', 6, 120.00, 1),
+(4, 22, '2024-12-31', 18, 162.00, 2),
+(2, 23, '2025-01-01', 22, 165.00, 3),
+(1, 24, '2025-01-02', 9, 135.00, 1),
+(5, 25, '2025-01-03', 11, 165.00, 2),
+(4, 15, '2025-01-04', 14, 196.00, 3),
+(3, 16, '2025-01-05', 13, 234.00, 1);
+
+-- Insert into inventory
+INSERT INTO inventory (branch_id, tile_id, current_stock, last_updated) 
+VALUES 
+(1, 15, 95, '2024-12-24'),
+(2, 16, 90, '2024-12-25'),
+(3, 17, 130, '2024-12-26'),
+(1, 18, 185, '2024-12-27'),
+(2, 19, 78, '2024-12-28'),
+(3, 20, 72, '2024-12-29'),
+(1, 21, 54, '2024-12-30'),
+(2, 22, 162, '2024-12-31'),
+(3, 23, 228, '2025-01-01'),
+(1, 24, 61, '2025-01-02'),
+(2, 25, 55, '2025-01-03'),
+(3, 15, 81, '2025-01-04'),
+(1, 16, 77, '2025-01-05');
+
+-- Insert into feedbackreports
+INSERT INTO feedbackreports (customer_id, branch_id, feedback_date, feedback_text, rating) 
+VALUES 
+(3, 1, '2024-12-24', 'Loved the 3D tiles, very modern!', 5),
+(4, 2, '2024-12-25', 'Natural stone tiles are beautiful.', 5),
+(2, 3, '2024-12-26', 'Vintage tiles were perfect for my home.', 4),
+(1, 1, '2024-12-27', 'Eco-friendly tiles are a great concept!', 5),
+(5, 2, '2024-12-28', 'Anti-slip tiles work great in bathrooms.', 4),
+(2, 3, '2024-12-29', 'Inventory was slightly low on some items.', 3),
+(4, 1, '2024-12-30', 'Good prices and helpful staff.', 4),
+(3, 2, '2024-12-31', 'High-quality tiles, will buy again!', 5),
+(5, 3, '2025-01-01', 'Delivery took longer than expected.', 3),
+(1, 1, '2025-01-02', 'Very satisfied with the purchase.', 5),
+(3, 2, '2025-01-03', 'Wide variety of options available.', 5),
+(4, 3, '2025-01-04', 'Some tiles were out of stock.', 3),
+(2, 1, '2025-01-05', 'Loved the service and tile quality.', 5);

@@ -1,0 +1,80 @@
+Table Creation
+-- Table: Branches
+CREATE TABLE branches ( -- revenue report
+    branch_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    contact_number VARCHAR(15)
+);
+
+-- Table: Categories
+CREATE TABLE categories ( -- inventory
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- Table: Tiles
+CREATE TABLE tiles ( -- inventory
+    tile_id INT AUTO_INCREMENT PRIMARY KEY,
+    tile_code VARCHAR(50) NOT NULL UNIQUE,
+    tile_name VARCHAR(100) NOT NULL,
+    category_id INT,
+    color VARCHAR(50) NOT NULL,
+    material VARCHAR(50),
+    tile_size VARCHAR(50),
+    price DECIMAL(10, 2) NOT NULL,
+    cost_price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT DEFAULT 0,
+    branch_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+-- Table: Customers
+CREATE TABLE customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    contact_number VARCHAR(15),
+    email VARCHAR(100),
+    address TEXT,
+    business_permit VARCHAR(50),
+    referred_by VARCHAR(100),
+    credit_limit DECIMAL(10, 2) DEFAULT 0
+);
+
+-- Table: Sales
+CREATE TABLE sales (
+    sale_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    tile_id INT,
+    sale_date DATE NOT NULL,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    branch_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (tile_id) REFERENCES tiles(tile_id),
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+-- Table: Inventory
+CREATE TABLE inventory (
+    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT,
+    tile_id INT,
+    current_stock INT NOT NULL,
+    last_updated DATE NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id),
+    FOREIGN KEY (tile_id) REFERENCES tiles(tile_id)
+);
+
+CREATE TABLE IF NOT EXISTS feedbackreports (
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT, 
+    branch_id INT,   
+    feedback_date DATE NOT NULL,
+    feedback_text TEXT NOT NULL,
+    rating INT CHECK (rating BETWEEN 1 AND 5), 
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
