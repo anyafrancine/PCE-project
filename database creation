@@ -1,4 +1,5 @@
-
+create database if not exists Olanis;
+use Olanis;
 -- Table: Branches
 CREATE TABLE branches ( -- revenue report
     branch_id INT AUTO_INCREMENT PRIMARY KEY,
