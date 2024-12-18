@@ -49,6 +49,7 @@
             font-size: 40px;
             text-align: left;
             border: 2px solid #8B0000;
+            text-align: center;
             vertical-align: top; /* Aligns long text to the top */
         }
 
@@ -95,61 +96,109 @@
     <hr style="margin: 0;">
 
     <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "password";
-        $dbname = "Olanis";
+    $servername = "localhost";
+    $username = "root";
+    $password = "password";
+    $dbname = "Olanis";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-        // SQL query to fetch feedbacks grouped by branch name
-        $sql_feedback = "
-            SELECT 
-                b.branch_name,
-                f.feedback_date,
-                f.feedback_text,
-                c.customer_name
-            FROM feedbackreports f
-            INNER JOIN branches b ON f.branch_id = b.branch_id
-            INNER JOIN customers c ON f.customer_id = c.customer_id
-            ORDER BY b.branch_name, f.feedback_date DESC;
-        ";
+    $currentMonth = date('m');
+    $currentYear = date('Y'); 
 
-        $result = $conn->query($sql_feedback);
-        $current_branch = null;
+    // SQL query to fetch feedbacks for the current month
+    $sql_feedback = "
+        SELECT 
+            b.branch_name,
+            f.feedback_date,
+            f.feedback_text,
+            c.customer_name,
+            f.rating
+        FROM feedbackreports f
+        INNER JOIN branches b ON f.branch_id = b.branch_id
+        INNER JOIN customers c ON f.customer_id = c.customer_id
+        WHERE MONTH(f.feedback_date) = $currentMonth AND YEAR(f.feedback_date) = $currentYear
+        ORDER BY b.branch_name, f.feedback_date DESC;
+    ";
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                // Check for a new branch and display a header
-                if ($current_branch !== $row['branch_name']) {
-                    if ($current_branch !== null) echo "</table>";
-                    echo "<h3>{$row['branch_name']}</h3>";
-                    echo "<table>
-                            <tr>
-                                <th>Feedback Date</th>
-                                <th>Customer Name</th>
-                                <th>Feedback</th>
-                            </tr>";
-                    $current_branch = $row['branch_name'];
-                }
+    echo "<h2 style='text-align: center; font-size: 50px; margin: 0; color: #8B0000;'>Sales Report for " . date('F Y') . "</h2><hr style='margin: 0'>";
 
-                // Display feedback details
-                echo "<tr>
-                        <td>{$row['feedback_date']}</td>
-                        <td>{$row['customer_name']}</td>
-                        <td>{$row['feedback_text']}</td>
-                      </tr>";
+    $result = $conn->query($sql_feedback);
+    $current_branch = null;
+    $branch_ratings = [];
+    $overall_ratings = 0;
+    $total_feedbacks = 0;
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // Check for a new branch and display a header
+            if ($current_branch !== $row['branch_name']) {
+                if ($current_branch !== null) echo "</table>";
+                echo "<h3>{$row['branch_name']}</h3>";
+                echo "<table>
+                        <tr>
+                            <th>Feedback Date</th>
+                            <th>Customer Name</th>
+                            <th>Feedback</th>
+                            <th>Rating</th>
+                        </tr>";
+                $current_branch = $row['branch_name'];
+                $branch_ratings[$row['branch_name']] = ['total' => 0, 'count' => 0]; // Initialize for the new branch
             }
-            echo "</table>";
-        } else {
-            echo "<h3>No feedback available</h3>";
+
+            // Display feedback details including rating
+            echo "<tr>
+                    <td>{$row['feedback_date']}</td>
+                    <td>{$row['customer_name']}</td>
+                    <td>{$row['feedback_text']}</td>
+                    <td>{$row['rating']}</td>
+                  </tr>";
+
+            // Update branch ratings data
+            $branch_ratings[$row['branch_name']]['total'] += $row['rating'];
+            $branch_ratings[$row['branch_name']]['count']++;
+
+            // Update overall ratings data
+            $overall_ratings += $row['rating'];
+            $total_feedbacks++;
+        }
+        echo "</table>";
+
+        // Calculate and display the total ratings for each branch
+        echo "<h3>Total Ratings for Each Branch</h3>";
+        echo "<table>
+                <tr>
+                    <th>Branch Name</th>
+                    <th>Average Rating</th>
+                </tr>";
+        foreach ($branch_ratings as $branch_name => $ratings) {
+            $average_rating = $ratings['count'] > 0 ? round($ratings['total'] / $ratings['count'], 2) : 0;
+            echo "<tr>
+                    <td>{$branch_name}</td>
+                    <td>{$average_rating}/5</td>
+                  </tr>";
         }
 
-        $conn->close();
+        // Calculate the overall average rating
+        if ($total_feedbacks > 0) {
+            $overall_average = round($overall_ratings / $total_feedbacks, 2);
+            echo "<tr>
+                    <th><strong>Overall Average Rating</strong></th>
+                    <th><strong>{$overall_average}/5</strong></th>
+                  </tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "<h3>No feedback available for " . date('F Y') . "</h3>";
+    }
+
+    $conn->close();
     ?>
+
 </body>
 </html>
