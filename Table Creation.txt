@@ -1,6 +1,8 @@
-Table Creation
+CREATE DATABASE IF NOT EXISTS Olanis;
+USE Olanis;
+
 -- Table: Branches
-CREATE TABLE branches ( -- revenue report
+CREATE TABLE IF NOT EXISTS branches ( 
     branch_id INT AUTO_INCREMENT PRIMARY KEY,
     branch_name VARCHAR(100) NOT NULL,
     address TEXT NOT NULL,
@@ -8,14 +10,14 @@ CREATE TABLE branches ( -- revenue report
 );
 
 -- Table: Categories
-CREATE TABLE categories ( -- inventory
+CREATE TABLE IF NOT EXISTS categories ( 
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(100) NOT NULL,
     description TEXT
 );
 
 -- Table: Tiles
-CREATE TABLE tiles ( -- inventory
+CREATE TABLE IF NOT EXISTS tiles ( 
     tile_id INT AUTO_INCREMENT PRIMARY KEY,
     tile_code VARCHAR(50) NOT NULL UNIQUE,
     tile_name VARCHAR(100) NOT NULL,
@@ -32,7 +34,7 @@ CREATE TABLE tiles ( -- inventory
 );
 
 -- Table: Customers
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
     contact_number VARCHAR(15),
@@ -44,7 +46,7 @@ CREATE TABLE customers (
 );
 
 -- Table: Sales
-CREATE TABLE sales (
+CREATE TABLE IF NOT EXISTS sales (
     sale_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
     tile_id INT,
@@ -58,7 +60,7 @@ CREATE TABLE sales (
 );
 
 -- Table: Inventory
-CREATE TABLE inventory (
+CREATE TABLE IF NOT EXISTS inventory (
     inventory_id INT AUTO_INCREMENT PRIMARY KEY,
     branch_id INT,
     tile_id INT,
@@ -68,6 +70,7 @@ CREATE TABLE inventory (
     FOREIGN KEY (tile_id) REFERENCES tiles(tile_id)
 );
 
+-- Table: Feedback Reports
 CREATE TABLE IF NOT EXISTS feedbackreports (
     feedback_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT, 
