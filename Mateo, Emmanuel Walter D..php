@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branch Performance Report</title>
+    <title>Branch Sales Report</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f9; }
         .header-container { display: flex; align-items: center; background-color: #454d32; padding: 20px 40px; color: white; }
@@ -24,7 +24,7 @@
         <img src="olanis_logo.png" alt="Logo" class="logo">
         <div class="text-container">
             <h1>Olanis Group of Companies, Inc.</h1>
-            <h2>Branch Performance Report</h2>
+            <h2>Branch Sales Report</h2>
         </div>
     </div>
 
