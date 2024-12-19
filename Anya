@@ -1,156 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Report</title>
+    <meta charset="UTF-8"> <!-- Sets character encoding to UTF-8 -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- Makes the page responsive on all screen sizes -->
+    <title>Feedback Report</title> 
+    <!-- Title of the page shown in the browser tab -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f4f4f9;
+            font-family: Arial, sans-serif; /* Sets font style */
+            margin: 0; /* Removes default margin */
+            padding: 0; /* Removes default padding */
+            background: #f4f4f9; /* Light background color */
         }
 
         .header-container {
-            display: flex;
-            align-items: center;
-            background-color: #8B0000;
-            padding: 20px 40px;
-            color: white;
+            display: flex; /* Uses flexbox to arrange logo and text horizontally */
+            align-items: center; /* Centers content vertically */
+            background-color: #8B0000; /* Red background for header */
+            padding: 20px 40px; /* Adds space around header content */
+            color: white; /* White text color */
         }
 
         .logo {
-            width: 200px;
-            margin-right: 20px;
+            width: 200px; /* Sets width of the logo */
+            margin-right: 20px; /* Adds space between logo and text */
         }
 
         .text-container h1 {
-            font-size: 100px;
-            margin: 0;
+            font-size: 100px; /* Large font size for title */
+            margin: 0; /* Removes margin */
         }
 
         .text-container h2 {
-            font-size: 60px;
-            margin: 5px 0;
+            font-size: 60px; /* Smaller font size for subtitle */
+            margin: 5px 0; /* Adds space between the title and subtitle */
         }
 
         table {
-            width: 85%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background: #ffffff;
-            table-layout: fixed; /* Ensures consistent column layout */
-            word-wrap: break-word;
+            width: 85%; /* Table width */
+            margin: 0 auto; /* Centers the table */
+            border-collapse: collapse; /* Merges table borders */
+            background: #ffffff; /* White background for table */
+            table-layout: fixed; /* Makes columns evenly spaced */
+            word-wrap: break-word; /* Breaks long words into multiple lines */
         }
 
         th, td {
-            padding: 15px;
-            font-size: 40px;
-            text-align: left;
-            border: 2px solid #8B0000;
-            text-align: center;
-            vertical-align: top; /* Aligns long text to the top */
+            padding: 15px; /* Adds space inside table cells */
+            font-size: 40px; /* Large font for table text */
+            text-align: left; /* Aligns text to the left */
+            border: 2px solid #8B0000; /* Red border for cells */
+            text-align: center; /* Centers text inside cells */
+            vertical-align: top; /* Aligns text to the top of cells */
         }
 
         th {
-            background-color: #8B0000;
-            color: white;
-            text-align: center;
+            background-color: #8B0000; /* Red background for table headers */
+            color: white; /* White text for table headers */
         }
 
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f2f2f2; /* Light gray background for even rows */
         }
 
         tr:hover {
-            background-color: #ddd;
+            background-color: #ddd; /* Changes row color on hover */
         }
 
         h3 {
-            text-align: center;
-            font-size: 60px;
-            margin: 40px auto 0;
-            background-color: #8B0000;
-            padding: 20px 40px;
-            color: white;
-            width: 85%;
-            box-sizing: border-box;
-            border: 2px solid #f2f2f2;
+            text-align: center; /* Centers the subheading text */
+            font-size: 60px; /* Large font for subheading */
+            margin: 40px auto 0; /* Adds space around the subheading */
+            background-color: #8B0000; /* Red background for subheading */
+            padding: 20px 40px; /* Adds space inside subheading */
+            color: white; /* White text color */
+            width: 85%; /* Sets width of the subheading */
+            box-sizing: border-box; /* Includes padding in width */
+            border: 2px solid #f2f2f2; /* Light border around subheading */
         }
 
         hr {
-            margin: 20px 0;
+            margin: 20px 0; /* Adds space around horizontal rule */
         }
     </style>
 </head>
 <body>
     <div class="header-container">
-        <img src="https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/279800257_484698290119133_1493035390163788707_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEN5D3IHhLGGVQpK1w4dln89Dc0gcH2VYr0NzSBwfZViqLQWGDZdFCQ0nfgeLRk_h74OMxg5TfPpntUltBzTq-i&_nc_ohc=Eg1BcmoPvjIQ7kNvgFqjdX8&_nc_zt=23&_nc_ht=scontent.fmnl8-1.fna&_nc_gid=ASN7breEqg_86J-2TFEBqVg&oh=00_AYC_M5SgFXCZflKQFCe_GrcQ8D_91TvV8HAb6WbBz_OLdw&oe=676882BA" alt="Logo" class="logo">
+        <img src="https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/279800257_484698290119133_1493035390163788707_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEN5D3IHhLGGVQpK1w4dln89Dc0gcH2VYr0NzSBwfZViqLQWGDZdFCQ0nfgeLRk_h74OMxg5TfPpntUltBzTq-i&_nc_ohc=Eg1BcmoPvjIQ7kNvgFqjdX8&_nc_zt=23&_nc_ht=scontent.fmnl8-1.fna&_nc_gid=ASN7breEqg_86J-2TFEBqVg&oh=00_AYC_M5SgFXCZflKQFCe_GrcQ8D_91TvV8HAb6WbBz_OLdw&oe=676882BA" alt="Logo" class="logo"> <!-- Displays the company logo -->
         <div class="text-container">
-            <h1>Olanis Group of Companies, Inc.</h1>
-            <h2>Feedback Report</h2>
+            <h1>Olanis Group of Companies, Inc.</h1> <!-- Main title -->
+            <h2>Feedback Report</h2> <!-- Subtitle -->
         </div>
     </div>
 
-    <hr style="margin: 0;">
+    <hr style="margin: 0;"> <!-- Horizontal line separating the header -->
 
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "password";
-    $dbname = "Olanis";
+    // Database connection details
+    $servername = "localhost"; // Server address
+    $username = "root"; // Database username
+    $password = "password"; // Database password
+    $dbname = "Olanis"; // Database name
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname); 
+    // Connect to the database
 
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        die("Connection failed: " . $conn->connect_error); // Shows error if connection fails
     }
 
-    $currentMonth = date('m');
-    $currentYear = date('Y'); 
+    $currentMonth = date('m'); // Gets the current month
+    $currentYear = date('Y'); // Gets the current year
 
-    // SQL query to fetch feedbacks for the current month
+    // SQL query to get feedback for the current month
     $sql_feedback = "
         SELECT 
-            b.branch_name,
-            f.feedback_date,
-            f.feedback_text,
-            c.customer_name,
-            f.rating
+            b.branch_name, -- Branch name
+            f.feedback_date, -- Date of feedback
+            f.feedback_text, -- Feedback content
+            c.customer_name, -- Customer name
+            f.rating -- Rating given by customer
         FROM feedbackreports f
         INNER JOIN branches b ON f.branch_id = b.branch_id
         INNER JOIN customers c ON f.customer_id = c.customer_id
         WHERE MONTH(f.feedback_date) = $currentMonth AND YEAR(f.feedback_date) = $currentYear
-        ORDER BY b.branch_name, f.feedback_date DESC;
+        ORDER BY b.branch_name, f.feedback_date DESC; -- Sorts by branch and date
     ";
 
     echo "<h2 style='text-align: center; font-size: 50px; margin: 0; color: #8B0000;'>Sales Report for " . date('F Y') . "</h2><hr style='margin: 0'>";
+    // Displays the month and year in header
 
-    $result = $conn->query($sql_feedback);
-    $current_branch = null;
-    $branch_ratings = [];
-    $overall_ratings = 0;
-    $total_feedbacks = 0;
+    $result = $conn->query($sql_feedback); // Executes the SQL query
+    $current_branch = null; // Keeps track of the current branch
+    $branch_ratings = []; // Stores ratings for each branch
+    $overall_ratings = 0; // Stores overall ratings
+    $total_feedbacks = 0; // Counts total feedbacks
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            // Check for a new branch and display a header
-            if ($current_branch !== $row['branch_name']) {
-                if ($current_branch !== null) echo "</table>";
-                echo "<h3>{$row['branch_name']}</h3>";
+    if ($result->num_rows > 0) { // If there are feedbacks
+        while ($row = $result->fetch_assoc()) { // For each feedback
+            if ($current_branch !== $row['branch_name']) { // If the branch changes
+                if ($current_branch !== null) echo "</table>"; // Close the previous table
+                echo "<h3>{$row['branch_name']}</h3>"; // Display branch name as heading
                 echo "<table>
                         <tr>
                             <th>Feedback Date</th>
                             <th>Customer Name</th>
                             <th>Feedback</th>
                             <th>Rating</th>
-                        </tr>";
-                $current_branch = $row['branch_name'];
-                $branch_ratings[$row['branch_name']] = ['total' => 0, 'count' => 0]; // Initialize for the new branch
+                        </tr>"; // Table headers
+                $current_branch = $row['branch_name']; // Update the current branch
+                $branch_ratings[$row['branch_name']] = ['total' => 0, 'count' => 0]; 
+                // Initialize branch ratings
             }
 
-            // Display feedback details including rating
+            // Display feedback information in table rows
             echo "<tr>
                     <td>{$row['feedback_date']}</td>
                     <td>{$row['customer_name']}</td>
@@ -158,47 +163,49 @@
                     <td>{$row['rating']}</td>
                   </tr>";
 
-            // Update branch ratings data
+            // Update branch ratings
             $branch_ratings[$row['branch_name']]['total'] += $row['rating'];
             $branch_ratings[$row['branch_name']]['count']++;
 
-            // Update overall ratings data
+            // Update overall ratings
             $overall_ratings += $row['rating'];
             $total_feedbacks++;
         }
-        echo "</table>";
+        echo "</table>"; // Close the table after all feedbacks
 
-        // Calculate and display the total ratings for each branch
+        // Display total ratings for each branch
         echo "<h3>Total Ratings for Each Branch</h3>";
         echo "<table>
                 <tr>
                     <th>Branch Name</th>
                     <th>Average Rating</th>
                 </tr>";
-        foreach ($branch_ratings as $branch_name => $ratings) {
-            $average_rating = $ratings['count'] > 0 ? round($ratings['total'] / $ratings['count'], 2) : 0;
+        foreach ($branch_ratings as $branch_name => $ratings) { // For each branch
+            $average_rating = $ratings['count'] > 0 ? round($ratings['total'] / $ratings['count'], 2) : 0; 
+            // Calculate average rating
             echo "<tr>
                     <td>{$branch_name}</td>
                     <td>{$average_rating}/5</td>
                   </tr>";
         }
 
-        // Calculate the overall average rating
+        // Display overall average rating
         if ($total_feedbacks > 0) {
-            $overall_average = round($overall_ratings / $total_feedbacks, 2);
+            $overall_average = round($overall_ratings / $total_feedbacks, 2); 
+            // Calculate overall average
             echo "<tr>
                     <th><strong>Overall Average Rating</strong></th>
                     <th><strong>{$overall_average}/5</strong></th>
                   </tr>";
         }
 
-        echo "</table>";
+        echo "</table>"; // Close the final table
     } else {
-        echo "<h3>No feedback available for " . date('F Y') . "</h3>";
+        echo "<h3>No feedback available for " . date('F Y') . "</h3>"; 
+        // Message if no feedback is found
     }
 
-    $conn->close();
+    $conn->close(); // Close the database connection
     ?>
-
 </body>
 </html>
