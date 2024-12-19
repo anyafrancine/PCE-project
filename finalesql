@@ -1,0 +1,243 @@
+create database if not exists Olanis;
+use Olanis;
+-- Table: Branches
+CREATE TABLE branches ( -- revenue report
+    branch_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    contact_number VARCHAR(15)
+);
+
+-- Table: Categories
+CREATE TABLE categories ( -- inventory
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- Table: Tiles
+CREATE TABLE tiles ( -- inventory
+    tile_id INT AUTO_INCREMENT PRIMARY KEY,
+    tile_code VARCHAR(50) NOT NULL UNIQUE,
+    tile_name VARCHAR(100) NOT NULL,
+    category_id INT,
+    color VARCHAR(50) NOT NULL,
+    material VARCHAR(50),
+    tile_size VARCHAR(50),
+    price DECIMAL(10, 2) NOT NULL,
+    cost_price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT DEFAULT 0,
+    branch_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+-- Table: Customers
+CREATE TABLE customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    contact_number VARCHAR(15),
+    email VARCHAR(100),
+    address TEXT,
+    business_permit VARCHAR(50),
+    referred_by VARCHAR(100),
+    credit_limit DECIMAL(10, 2) DEFAULT 0
+);
+
+-- Table: Sales
+CREATE TABLE sales (
+    sale_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    tile_id INT,
+    sale_date DATE NOT NULL,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    branch_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (tile_id) REFERENCES tiles(tile_id),
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+-- Table: Inventory
+CREATE TABLE inventory (
+    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT,
+    tile_id INT,
+    current_stock INT NOT NULL,
+    last_updated DATE NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id),
+    FOREIGN KEY (tile_id) REFERENCES tiles(tile_id)
+);
+
+CREATE TABLE IF NOT EXISTS feedbackreports (
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT, 
+    branch_id INT,   
+    feedback_date DATE NOT NULL,
+    feedback_text TEXT NOT NULL,
+    rating INT CHECK (rating BETWEEN 1 AND 5), 
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+-- Table: Revenue
+CREATE TABLE revenue (
+    revenue_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT,
+    revenue_date DATE NOT NULL,
+    revenue DECIMAL(15, 2) NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+CREATE TABLE IF NOT EXISTS salary (
+	salary_id INT AUTO_INCREMENT PRIMARY KEY,
+	branch_id INT,
+    salary_date DATE NOT NULL,
+    salary DECIMAL(15, 2) NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+    
+    CREATE TABLE IF NOT EXISTS expenses (
+	expense_id INT AUTO_INCREMENT PRIMARY KEY,
+	branch_id INT,
+    expense_date DATE NOT NULL,
+    expense DECIMAL(15, 2) NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+    
+    CREATE TABLE IF NOT EXISTS employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    position VARCHAR(50),
+    hire_date DATE NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+);
+
+-- Insert into branches
+INSERT INTO branches (branch_name, address, contact_number) 
+VALUES 
+('Main Branch', '6535+97P, National Highway, Barangay Real, Calamba, Laguna', '(049) 834 6978'),
+('North Branch 1', '123 Main St, Metro City', '(049) 905 4132'),
+('North Branch 2', '456 North St, Metro City', '(049) 762 0541');
+
+-- Insert into categories
+INSERT INTO categories (category_name, description) 
+VALUES 
+('3D Tiles', 'Modern tiles with three-dimensional effects for creative designs'),
+('Natural Stone Tiles', 'Eco-friendly tiles made from natural stone'),
+('Vintage Tiles', 'Retro-style tiles for timeless aesthetics'),
+('Eco-Friendly Tiles', 'Sustainable tiles made with recycled materials'),
+('Anti-Slip Tiles', 'Safe tiles designed to prevent slipping');
+
+-- Insert into tiles
+INSERT INTO tiles (tile_code, tile_name, category_id, color, material, tile_size, price, cost_price, stock_quantity, branch_id) 
+VALUES 
+('3DT-015', 'Geometric Gray 3D Tile', 1, 'Gray', 'Porcelain', '45x45 cm', 14.00, 9.50, 120, 1),
+('NAT-016', 'Rustic Natural Stone', 2, 'Earth', 'Stone', '50x50 cm', 18.00, 12.50, 100, 2),
+('VIN-017', 'Vintage Floral Pattern', 3, 'Blue', 'Ceramic', '30x30 cm', 10.00, 6.00, 150, 3),
+('ECO-018', 'Recycled Green Tile', 4, 'Green', 'Ceramic', '30x30 cm', 8.00, 5.50, 200, 1),
+('ANT-019', 'Textured Anti-Slip', 5, 'Black', 'Porcelain', '60x60 cm', 12.00, 7.00, 90, 2),
+('3DT-020', 'Wavy White 3D Tile', 1, 'White', 'Porcelain', '45x90 cm', 16.00, 10.00, 80, 3),
+('NAT-021', 'Smooth River Stone', 2, 'Gray', 'Stone', '60x40 cm', 20.00, 13.50, 60, 1),
+('VIN-022', 'Checkerboard Vintage Tile', 3, 'Black and White', 'Ceramic', '20x20 cm', 9.00, 5.00, 180, 2),
+('ECO-023', 'Eco-Friendly Brown', 4, 'Brown', 'Porcelain', '30x30 cm', 7.50, 4.50, 250, 3),
+('ANT-024', 'Rough Texture Safety Tile', 5, 'Red', 'Ceramic', '60x60 cm', 15.00, 9.00, 70, 1);
+
+-- Insert into customers
+INSERT INTO customers (customer_name, contact_number, email, address, business_permit, referred_by, credit_limit) 
+VALUES 
+('Chris Black', '111-222-3333', 'chris.black@example.com', '777 Fern St, Metro City', 'BP111222', NULL, 4500.00),
+('Patricia Gray', '444-555-6666', 'patricia.gray@example.com', '888 Ash St, Metro City', 'BP444555', 'Sophia Blue', 5500.00),
+('Liam Gold', '777-888-9999', 'liam.gold@example.com', '999 Cedar St, Metro City', 'BP777888', 'John Doe', 6000.00),
+('Amelia Silver', '888-999-0000', 'amelia.silver@example.com', '1010 Iron St, Metro City', 'BP888999', 'Jane Smith', 5000.00),
+('Lucas Pearl', '999-000-1111', 'lucas.pearl@example.com', '1111 Bronze St, Metro City', 'BP999000', 'Alice Green', 3000.00);
+
+-- Insert into sales
+INSERT INTO sales (customer_id, tile_id, sale_date, quantity, total_price, branch_id) 
+VALUES 
+(2, 1, '2024-12-24', 25, 350.00, 1),
+(4, 2, '2024-12-25', 10, 180.00, 2),
+(5, 3, '2024-12-26', 20, 200.00, 3),
+(3, 4, '2024-12-27', 15, 120.00, 1),
+(1, 5, '2024-12-28', 12, 144.00, 2);
+
+-- Insert into inventory
+INSERT INTO inventory (branch_id, tile_id, current_stock, last_updated) 
+VALUES 
+(1, 1, 95, '2024-12-24'),
+(2, 2, 90, '2024-12-25'),
+(3, 3, 130, '2024-12-26'),
+(1, 4, 185, '2024-12-27'),
+(2, 5, 78, '2024-12-28');
+
+-- Insert into feedbackreports
+INSERT INTO feedbackreports (customer_id, branch_id, feedback_date, feedback_text, rating) 
+VALUES 
+(3, 1, '2024-12-24', 'Loved the 3D tiles, very modern!', 5),
+(4, 2, '2024-12-25', 'Natural stone tiles are beautiful.', 5),
+(2, 3, '2024-12-26', 'Vintage tiles were perfect for my home.', 4),
+(1, 1, '2024-12-27', 'Eco-friendly tiles are a great concept!', 5),
+(5, 2, '2024-12-28', 'Anti-slip tiles work great in bathrooms.', 4);
+
+-- Insert into revenue
+INSERT INTO revenue (branch_id, revenue_date, revenue) 
+VALUES 
+(1, '2024-12-24', 5000.00),
+(1, '2024-12-01', 1500.50),
+(2, '2024-12-25', 3500.00),
+(2, '2024-12-01', 1200.00),
+(3, '2024-12-26', 4000.00),
+(3, '2024-12-01', 1300.30),
+(1, '2024-11-24', 4300.00),
+(1, '2024-11-01', 1000.50),
+(2, '2024-11-25', 4000.00),
+(2, '2024-11-01', 1300.00),
+(3, '2024-11-26', 5000.00),
+(3, '2024-11-01', 1200.30);
+
+INSERT INTO salary (branch_id, salary_date, salary) 
+VALUES 
+(2, '2024-12-01', 1500.00),
+(1, '2024-12-01', 1200.00),
+(3, '2024-12-01', 1400.00),
+(2, '2024-12-01', 1800.00),
+(2, '2024-11-01', 1300.00),
+(1, '2024-11-01', 1700.00),
+(3, '2024-11-01', 1600.00),
+(2, '2024-11-01', 1400.00);
+
+INSERT INTO expenses (branch_id, expense_date, expense) 
+VALUES 
+(1, '2024-12-01', 2000.00),
+(2, '2024-12-01', 1500.00),
+(3, '2024-12-01', 1800.00),
+(1, '2024-12-15', 1200.00),
+(2, '2024-12-15', 1000.00),
+(1, '2024-11-01', 1500.00),
+(2, '2024-11-01', 1800.00),
+(3, '2024-11-01', 1700.00),
+(1, '2024-11-15', 1100.00),
+(2, '2024-11-15', 1300.00);
+
+INSERT INTO employees (branch_id, first_name, last_name, position, hire_date) 
+VALUES 
+(1, 'John', 'Doe', 'Manager', '2020-05-15'),
+(2, 'Jane', 'Smith', 'Accountant', '2021-07-20'),
+(1, 'Mark', 'Brown', 'Clerk', '2022-01-10'),
+(3, 'Emily', 'White', 'Supervisor', '2019-03-25'),
+(2, 'Michael', 'Green', 'Sales Representative', '2023-06-15');
+
+SELECT 
+    DATE_FORMAT(r.revenue_date, '%Y-%m') AS YearMonth,
+    SUM(IFNULL(s.total_price, 0)) AS Total_Sales,
+    SUM(IFNULL(sl.salary, 0)) AS Total_Salary,
+    SUM(IFNULL(e.expense, 0)) AS Total_Expenses,
+    SUM(IFNULL(r.revenue, 0)) AS Total_Revenue
+FROM revenue r
+LEFT JOIN sales s ON YEAR(r.revenue_date) = YEAR(s.sale_date) AND MONTH(r.revenue_date) = MONTH(s.sale_date)
+LEFT JOIN salary sl ON YEAR(r.revenue_date) = YEAR(sl.salary_date) AND MONTH(r.revenue_date) = MONTH(sl.salary_date)
+LEFT JOIN expenses e ON YEAR(r.revenue_date) = YEAR(e.expense_date) AND MONTH(r.revenue_date) = MONTH(e.expense_date)
+GROUP BY YearMonth
+ORDER BY YearMonth;
