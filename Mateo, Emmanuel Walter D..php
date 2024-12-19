@@ -21,7 +21,7 @@
 </head>
 <body>
     <div class="header-container">
-        <img src="https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/279800257_484698290119133_1493035390163788707_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEN5D3IHhLGGVQpK1w4dln89Dc0gcH2VYr0NzSBwfZViqLQWGDZdFCQ0nfgeLRk_h74OMxg5TfPpntUltBzTq-i&_nc_ohc=Eg1BcmoPvjIQ7kNvgFqjdX8&_nc_zt=23&_nc_ht=scontent.fmnl8-1.fna&_nc_gid=ASN7breEqg_86J-2TFEBqVg&oh=00_AYC_M5SgFXCZflKQFCe_GrcQ8D_91TvV8HAb6WbBz_OLdw&oe=676882BA" alt="Logo" class="logo">
+        <img src="olanis_logo.png" alt="Logo" class="logo">
         <div class="text-container">
             <h1>Olanis Group of Companies, Inc.</h1>
             <h2>Branch Performance Report</h2>
@@ -51,6 +51,8 @@
             t.material,
             t.tile_size,
             s.quantity,
+            t.price as price_per_tile,
+            s.quantity * t.price as total_payment,
             cu.customer_name
         FROM sales s
         INNER JOIN tiles t ON s.tile_id = t.tile_id
@@ -94,6 +96,8 @@
                             <th>Material</th>
                             <th>Tile Size</th>
                             <th>Quantity</th>
+                            <th>Price Per Piece</th>
+                            <th>Total Price Paid</th>
                             <th>Customer Name</th>
                         </tr>";
                 $current_branch = $row['branch_name'];
@@ -105,6 +109,8 @@
                     <td>{$row['color']}</td>
                     <td>{$row['material']}</td>
                     <td>{$row['tile_size']}</td>
+                    <td>{$row['quantity']}</td>
+                    <td>{$row['price_per_tile']}</td>
                     <td>{$row['quantity']}</td>
                     <td>{$row['customer_name']}</td>
                   </tr>";
